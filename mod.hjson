@@ -1,8 +1,8 @@
-name: "your-mod"
-displayName: "Your mod name"
-author: "YourNickName"
-main: "yourmod.YourMod"
-description: "Your own mod"
+name: "simple-hotkeys"
+displayName: "[white] Simple [gray]hot[lightgray]keys"
+author: "Zelaux"
+main: "simpleHotkeys.SimpleHotkeys"
+description: "Added possibility to bind command on a key"
 version: 0.1
 minGameVersion: 133
-
+hidden:true

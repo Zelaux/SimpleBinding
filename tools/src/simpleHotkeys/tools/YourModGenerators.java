@@ -1,4 +1,4 @@
-package yourmod.tools;
+package simpleHotkeys.tools;
 
 import mma.tools.*;
 

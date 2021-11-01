@@ -1,8 +1,8 @@
-package yourmod.tools;
+package simpleHotkeys.tools;
 
 import mindustry.ctype.*;
 import mma.tools.*;
-import yourmod.*;
+import simpleHotkeys.*;
 
 public class YourModImagePacker extends ModImagePacker {
 
@@ -11,7 +11,7 @@ public class YourModImagePacker extends ModImagePacker {
 
     @Override
     protected void start() throws Exception {
-        YourModVars.create();
+        SHVars.create();
 
         super.start();
     }

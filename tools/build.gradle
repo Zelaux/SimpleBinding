@@ -12,7 +12,7 @@ import arc.util.async.Threads
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-def imagePackerPath="yourmod.tools.YourModImagePacker"
+def imagePackerPath="simpleHotkeys.tools.SHImagePacker"
 def genFolder = "../core/assets-raw/sprites_out/generated/"
 def doAntialias = !project.hasProperty("disableAntialias")
 def colorMap = new IntMap<List<Color>>(), colorIndexMap = new IntIntMap()

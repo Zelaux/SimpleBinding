@@ -2,8 +2,8 @@ buildscript{
     ext{
         mainPackage = "yourmod";
 
-        arcHash = '128'
-        mindustryVersion = 'v130.1'
+        arcHash = 'v133'
+        mindustryVersion = 'v133'
         modCoreVersion = "32520b1c4be"
     }
     repositories{
@@ -44,10 +44,10 @@ ext{
 }
 
 version '1.0'
-allprojects{
+allprojects {
     apply plugin: 'groovy'
 
-    version = 'release'
+//    version = 'release'
     ext{
         arcModule = { String name ->
             //skip to last submodule
@@ -304,6 +304,8 @@ task deploy(type: Jar){
 }
 task mjar() {
     dependsOn "jar"
+    doFirst {
+    }
     ext{
         move={String intoPath ->
             delete {
