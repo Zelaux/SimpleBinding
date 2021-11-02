@@ -8,11 +8,12 @@ import mindustry.gen.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.KeybindDialog.*;
 import simpleHotkeys.*;
+import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.tools.*;
 import simpleHotkeys.type.*;
 
 import static arc.Core.*;
-
+@Trigger("keyAction")
 public class KeyActionTrigger extends ActionTrigger{
     protected static KeybindDialogStyle style;
     public KeyCode keyCode = KeyCode.unknown;

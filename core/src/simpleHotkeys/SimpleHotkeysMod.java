@@ -3,6 +3,7 @@ package simpleHotkeys;
 import arc.*;
 import arc.struct.*;
 import arc.util.*;
+import arc.util.serialization.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
 import mindustry.io.*;
@@ -14,7 +15,6 @@ import simpleHotkeys.gen.*;
 import static simpleHotkeys.SHVars.*;
 
 /** If you have no sprites, music and sounds in your mod, remove the annotation after this line */
-@EnumConstructing
 @ModAnnotations.ModAssetsAnnotation
 public class SimpleHotkeysMod extends MMAMod{
     public SimpleHotkeysMod(){
@@ -36,8 +36,8 @@ public class SimpleHotkeysMod extends MMAMod{
         modLog("init");
         modInfo = Vars.mods.getMod(this.getClass());
         Seq<Class<?>> classes=Seq.with();
-        classes.addAll(Seq.with(ActionEnum.values()).map(a->a.referenceType).as());
-        classes.addAll(Seq.with(TriggerEnum.values()).map(t->t.referenceType).as());
+        classes.addAll(Seq.with(ActionList.values()).map(a->a.referenceType).as());
+        classes.addAll(Seq.with(TriggerList.values()).map(t->t.referenceType).as());
         for(Class<?> referenceType : classes){
             JsonIO.json.addClassTag(referenceType.getName(),referenceType);
         }

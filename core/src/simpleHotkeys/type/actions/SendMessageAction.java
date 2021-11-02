@@ -3,9 +3,10 @@ package simpleHotkeys.type.actions;
 import arc.scene.ui.layout.*;
 import mindustry.*;
 import mindustry.gen.*;
+import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.type.*;
 import simpleHotkeys.type.trigger.*;
-
+@Action("chatMessage")
 public class SendMessageAction extends ActionWithTrigger{
     public String command;
 

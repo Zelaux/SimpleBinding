@@ -48,8 +48,8 @@ public abstract class ActionWithTrigger{
     }
 
     protected void addTriggerButton(Table table, Runnable onAdded){
-        TriggerEnum value[] = {TriggerEnum.keyActionTrigger};
-        int length = TriggerEnum.values().length;
+        TriggerList value[] = {TriggerList.keyAction};
+        int length = TriggerList.values().length;
         int cols = length < 4 ? length : length / 2;
         table.button("@simple-hotkeys.add-trigger", () -> {
             triggers.add(value[0].create());
@@ -58,7 +58,7 @@ public abstract class ActionWithTrigger{
         table.button(button -> {
             button.label(() -> value[0].name());
             button.clicked(() -> {
-                UIUtils.showSelect(button, TriggerEnum.values(), value[0], newValue -> {
+                UIUtils.showSelect(button, TriggerList.values(), value[0], newValue -> {
                     value[0] = newValue;
                 }, cols, cell -> cell.size(220f, 60));
             });

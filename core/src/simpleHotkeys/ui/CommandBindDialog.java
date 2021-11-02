@@ -56,8 +56,8 @@ public class CommandBindDialog extends BaseDialog{
                 }
             };
         }).fillX();
-        ActionEnum value[] = {ActionEnum.values()[0]};
-        int length = ActionEnum.values().length;
+        ActionList value[] = {ActionList.values()[0]};
+        int length = ActionList.values().length;
         int cols = length < 4 ? length : length / 2;
         buttons.button("@simple-hotkeys.add-action", () -> {
             actions.add(value[0].create());
@@ -66,7 +66,7 @@ public class CommandBindDialog extends BaseDialog{
         buttons.button(button -> {
             button.label(() -> value[0].name());
             button.clicked(() -> {
-                UIUtils.showSelect(button, ActionEnum.values(), value[0], newValue -> {
+                UIUtils.showSelect(button, ActionList.values(), value[0], newValue -> {
                     value[0] = newValue;
                 }, cols, cell -> cell.size(220f, 74));
             });
