@@ -7,6 +7,10 @@ public class CommandBindDialog extends BaseDialog{
     public CommandBindDialog(){
         super("@dialog.commands-bind.title");
         shown(this::rebuild);
+        hidden(()->{
+            SHVars.simpleActions.save();
+//            SHVars.simpleActions.hide();
+        });
     }
 
     private void rebuild(){
@@ -16,7 +20,6 @@ public class CommandBindDialog extends BaseDialog{
         cont.pane(t->{
             SHVars.simpleActions.show(t);
         }).fill().get().setScrollingDisabled(true,false);
-
 
         addCloseButton();
         addCloseListener();

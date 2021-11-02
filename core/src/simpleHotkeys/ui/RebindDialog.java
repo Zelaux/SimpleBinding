@@ -10,7 +10,6 @@ import arc.util.*;
 import static arc.Core.bundle;
 
 public class RebindDialog extends Dialog{
-    String rebindKey;
     boolean rebindAxis = false;
     boolean rebindMin = true;
     KeyCode minKey;
@@ -18,7 +17,6 @@ public class RebindDialog extends Dialog{
     };
 
     void rebind(KeyCode newKey){
-        if(rebindKey == null) return;
         hide();
         listener.get(newKey);
         if(rebindAxis && rebindMin && !newKey.axis){
@@ -28,7 +26,6 @@ public class RebindDialog extends Dialog{
         }else{
             listener = code -> {
             };
-            rebindKey = null;
             rebindAxis = false;
         }
     }
@@ -60,7 +57,6 @@ public class RebindDialog extends Dialog{
 
         title.setText(rebindAxis ? bundle.get("keybind.press.axis", "Press an axis or key...") : bundle.get("keybind.press", "Press a key..."));
 
-        rebindKey = name;
 
         titleTable.getCells().first().pad(4);
 

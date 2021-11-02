@@ -1,70 +1,78 @@
 package simpleHotkeys.type.trigger;
 
-import arc.*;
+import arc.func.*;
 import arc.input.*;
 import arc.scene.ui.TextButton.*;
 import arc.scene.ui.layout.*;
-import arc.struct.*;
 import mindustry.gen.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.KeybindDialog.*;
 import simpleHotkeys.*;
-import simpleHotkeys.type.actions.*;
+import simpleHotkeys.tools.*;
+import simpleHotkeys.type.*;
 
-import static arc.Core.scene;
+import static arc.Core.*;
 
 public class KeysDownTrigger implements ActionTrigger{
     protected static KeybindDialogStyle style;
-    Seq<KeyCode> keyCodes = new Seq<>();
+    public KeyCode keyCode = KeyCode.unknown;
+    public KeyAction keyAction = KeyAction.down;
+    private transient Runnable onRemove = () -> {
+    };
 
-    public static Seq<KeyCode> validKeyCodes(){
-        return Seq.with(KeyCode.values()).select(c -> !c.axis);
+    public KeysDownTrigger(){
     }
 
     @Override
     public boolean trigger(){
-        if(keyCodes.isEmpty()) return false;
-        return keyCodes.count(t -> Core.input.keyDown(t)) == keyCodes.size;
+        return keyAction.trigger(keyCode);
     }
 
     @Override
-    public void display(Table rootTable, ActionWithTrigger action){
+    public void display(Table rootTable, Runnable onRemove){
         if(style == null){
-            scene.getStyle(KeybindDialogStyle.class);
+            style = scene.getStyle(KeybindDialogStyle.class);
         }
-        TextButtonStyle tstyle = Styles.defaultt;
-        Runnable rebuild[]={null};
-        rootTable.table(table->{
-            rebuild[0]=()->{
-                table.clearChildren();
-                for(int i = 0; i < keyCodes.size; i++){
-                    final int fixedI = i;
-                    KeyCode keyCode = keyCodes.get(i);
-                    table.table(Tex.pane, t -> {
-                        t.add(keyCode.toString(),
-                        style.keyColor).left().minWidth(90).padRight(20);
+        this.onRemove = onRemove;
+        rootTable.table(Tex.pane, this::rebuild);
+    }
 
-                        t.button("@settings.rebind", tstyle, () -> {
-                            SHVars.shUI.rebindDialog.show(key -> {
-                                keyCodes.set(fixedI, key);
-                                rebuild[0].run();
-                            });
-//                    rebindAxis = false;
-//                    rebindMin = false;
-//                    openDialog(section, keybind);
-                        }).width(130f);
-                    });
-                    if((i + 1) % 2 == 0) table.row();
-                }
-                if (keyCodes.isEmpty()){
-                    table.add("@none").row();
-                }
-                table.button("@add",()->{
-                    keyCodes.add(KeyCode.unknown);
-                    rebuild[0].run();
-                });
-            };
-            rebuild[0].run();
-        });
+    private void rebuild(Table table){
+        TextButtonStyle tstyle = Styles.defaultt;
+
+        table.clearChildren();
+        table.defaults().left();
+        table.add(keyCode.toString(), style.keyColor).left().minWidth(90).padRight(20);
+
+        table.button("@settings.rebind", tstyle, () -> {
+            SHVars.shUI.rebindDialog.show(key -> {
+                keyCode = key;
+                rebuild(table);
+            });
+        }).width(130f);
+        table.button(button -> {
+            button.label(() -> keyAction.name());
+            button.clicked(() -> UIUtils.showSelect(button, KeyAction.values(), keyAction, k -> {
+                keyAction = k;
+                rebuild(table);
+            }, 3, cell -> {
+                cell.size(100, 50);
+            }));
+        }, Styles.logict, () -> {
+        }).size(90, 40).left().padLeft(2);
+        table.button(Icon.trash, onRemove::run).grow();
+    }
+
+    public enum KeyAction{
+        down(k -> input.keyDown(k)), tap(k -> input.keyTap(k)), release(k -> input.keyRelease(k));
+        final Boolf<KeyCode> action;
+
+        KeyAction(Boolf<KeyCode> action){
+            this.action = action;
+        }
+
+        public boolean trigger(KeyCode key){
+            return action.get(key);
+        }
     }
 }

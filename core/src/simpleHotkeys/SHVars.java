@@ -30,6 +30,8 @@ public class SHVars extends ModVars{
     }
 
     public static void init(){
+        simpleActions = SimpleActions.load();
+        ModListener.updaters.add(simpleActions::check);
     }
 
     /**
@@ -39,8 +41,6 @@ public class SHVars extends ModVars{
     public static void load(){
         onLoad.each(Runnable::run);
         onLoad.clear();
-        simpleActions = SimpleActions.load();
-        ModListener.updaters.add(simpleActions::check);
         //for example
         //settings = new ModSettings();
         if (!headless) listener.add(shUI = new SHUI());
