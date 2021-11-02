@@ -4,6 +4,7 @@ import arc.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.*;
+import mindustry.game.EventType.*;
 import mindustry.io.*;
 import mma.*;
 import mma.annotations.*;
@@ -13,11 +14,17 @@ import simpleHotkeys.gen.*;
 import static simpleHotkeys.SHVars.*;
 
 /** If you have no sprites, music and sounds in your mod, remove the annotation after this line */
-@ModAnnotations.ModAssetsAnnotation
 @EnumConstructing
+@ModAnnotations.ModAssetsAnnotation
 public class SimpleHotkeysMod extends MMAMod{
     public SimpleHotkeysMod(){
         super();
+        if (Vars.mobile){
+            Events.on(ClientLoadEvent.class,e->{
+                Vars.ui.showInfo("@simple-hotkeys.not-for-mobile");
+            });
+            return;
+        }
         ModVars.loaded = true;
         SHVars.load();
         modLog("constructor");
@@ -25,6 +32,7 @@ public class SimpleHotkeysMod extends MMAMod{
 
 
     public void init(){
+        if (Vars.mobile)return;
         modLog("init");
         modInfo = Vars.mods.getMod(this.getClass());
         Seq<Class<?>> classes=Seq.with();

@@ -13,14 +13,14 @@ import simpleHotkeys.type.*;
 
 import static arc.Core.*;
 
-public class KeysDownTrigger implements ActionTrigger{
+public class KeyActionTrigger implements ActionTrigger{
     protected static KeybindDialogStyle style;
     public KeyCode keyCode = KeyCode.unknown;
     public KeyAction keyAction = KeyAction.down;
     private transient Runnable onRemove = () -> {
     };
 
-    public KeysDownTrigger(){
+    public KeyActionTrigger(){
     }
 
     @Override

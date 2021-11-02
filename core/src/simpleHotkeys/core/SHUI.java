@@ -26,10 +26,9 @@ public class SHUI extends ModUI{
         Runnable rebuild=()->{
             Table settingUi = (Table)((Group)((Group)(ui.settings.getChildren().get(1))).getChildren().get(0)).getChildren().get(0);
             settingUi.row();
-            settingUi.button("test",Styles.cleart, commandBindDialog::show);
+            settingUi.button("@dialog.simple-hotkeys-edit.label",Styles.cleart, commandBindDialog::show);
         };
-        Log.info("LOL");
-        ui.settings.resized(rebuild::run);
+//        ui.settings.resized(rebuild::run);
         ui.settings.shown(rebuild::run);
 //        ui.settings.menu.button("test",commandBindDialog::show);
     }

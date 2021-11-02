@@ -60,7 +60,6 @@ public class SimpleActions{
                     t.button("@copy", Icon.copy, new TextButtonStyle(Styles.defaultt){{
                         up=Tex.buttonEdge3;
                     }}, () -> {
-                        Log.info("action: @", JsonIO.write(action));
                         actions.insert(actions.indexOf(action), JsonIO.copy(action));
                         rebuild.run();
                     }).size(210f, 64f).bottom().left();
@@ -77,7 +76,7 @@ public class SimpleActions{
         ActionEnum value[] = {ActionEnum.values()[0]};
         int length = ActionEnum.values().length;
         int cols = length < 4 ? length : length / 2;
-        buttons.button("@simple-hotkeys.add-trigger", () -> {
+        buttons.button("@simple-hotkeys.add-action", () -> {
             actions.add(value[0].create());
             rebuild.run();
         }).size(210f, 64);

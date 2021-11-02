@@ -5,7 +5,7 @@ import simpleHotkeys.*;
 
 public class CommandBindDialog extends BaseDialog{
     public CommandBindDialog(){
-        super("@dialog.commands-bind.title");
+        super("@dialog.simple-hotkeys-edit.title");
         shown(this::rebuild);
         hidden(()->{
             SHVars.simpleActions.save();

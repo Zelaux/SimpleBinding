@@ -32,7 +32,7 @@ public class UIUtils{
     }
 
     public static void tooltip(Cell<?> cell, Enum<?> key){
-        String cl = key.getClass().getSimpleName().toLowerCase() + "." + key.name().toLowerCase();
+        String cl = "tooltip."+key.getClass().getSimpleName().toLowerCase() + "." + key.name().toLowerCase();
         if(Core.bundle.has(cl)){
             tooltip(cell, cl);
         }else{
