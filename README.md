@@ -1,7 +1,13 @@
 # SimpleBinding
 SimpleHotkeys allows you to bind actions to events. While there is 1 action and 1 event. mod is under development.
-Adds button in the settings with you actions.
 
+Adds button in the settings with you actions.
+![image](https://user-images.githubusercontent.com/58040045/139849322-9bde5659-d4cc-4a84-87cb-20d0ceac81ab.png)
+
+----
+
+Example action:
+![image](https://user-images.githubusercontent.com/58040045/139849388-8375aa98-afc5-45b5-8a29-a2a115610ca3.png)
 
 
 ## Building for Desktop Testing
