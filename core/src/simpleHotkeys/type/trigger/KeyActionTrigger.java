@@ -13,7 +13,7 @@ import simpleHotkeys.type.*;
 
 import static arc.Core.*;
 
-public class KeyActionTrigger implements ActionTrigger{
+public class KeyActionTrigger extends ActionTrigger{
     protected static KeybindDialogStyle style;
     public KeyCode keyCode = KeyCode.unknown;
     public KeyAction keyAction = KeyAction.down;
@@ -28,16 +28,11 @@ public class KeyActionTrigger implements ActionTrigger{
         return keyAction.trigger(keyCode);
     }
 
-    @Override
-    public void display(Table rootTable, Runnable onRemove){
+
+    protected void rebuild(Table table){
         if(style == null){
             style = scene.getStyle(KeybindDialogStyle.class);
         }
-        this.onRemove = onRemove;
-        rootTable.table(Tex.pane, this::rebuild);
-    }
-
-    private void rebuild(Table table){
         TextButtonStyle tstyle = Styles.defaultt;
 
         table.clearChildren();
@@ -60,7 +55,7 @@ public class KeyActionTrigger implements ActionTrigger{
             }));
         }, Styles.logict, () -> {
         }).size(90, 40).left().padLeft(2);
-        table.button(Icon.trash, onRemove::run).grow();
+        removeButton(table).grow();
     }
 
     public enum KeyAction{

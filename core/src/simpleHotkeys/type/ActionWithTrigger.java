@@ -48,7 +48,7 @@ public abstract class ActionWithTrigger{
     }
 
     protected void addTriggerButton(Table table, Runnable onAdded){
-        TriggerEnum value[] = {TriggerEnum.values()[0]};
+        TriggerEnum value[] = {TriggerEnum.keyActionTrigger};
         int length = TriggerEnum.values().length;
         int cols = length < 4 ? length : length / 2;
         table.button("@simple-hotkeys.add-trigger", () -> {

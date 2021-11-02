@@ -1,5 +1,5 @@
 name: "simple-hotkeys"
-displayName: "[white] Simple [gray]hot[lightgray]keys"
+displayName: " [white] Simple [gray]Binding"
 author: "Zelaux"
 main: "simpleHotkeys.SimpleHotkeysMod"
 description: "Added possibility to bind command on a key"
