@@ -1,6 +1,8 @@
-# ZelauxMindustryModTamplate
-A Java Mindustry mod template with ZelauxModCore that works on Android and PC.
-Do not forget to visit [ZelauxModCore github](https://github.com/Zelaux/ZelauxModCore)
+# SimpleBinding
+SimpleHotkeys allows you to bind actions to events. While there is 1 action and 1 event. mod is under development.
+Adds button in the settings with you actions.
+
+
 
 ## Building for Desktop Testing
 
