@@ -2,6 +2,7 @@ package simpleHotkeys.type.trigger;
 
 import arc.func.*;
 import arc.input.*;
+import arc.scene.ui.*;
 import arc.scene.ui.TextButton.*;
 import arc.scene.ui.layout.*;
 import mindustry.gen.*;
@@ -26,6 +27,7 @@ public class KeyActionTrigger extends ActionTrigger{
 
     @Override
     public boolean trigger(){
+        if(scene.getKeyboardFocus() instanceof TextField) return false;
         return keyAction.trigger(keyCode);
     }
 
