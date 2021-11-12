@@ -5,6 +5,7 @@ import arc.input.*;
 import arc.scene.ui.*;
 import arc.scene.ui.TextButton.*;
 import arc.scene.ui.layout.*;
+import mindustry.*;
 import mindustry.gen.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.KeybindDialog.*;
@@ -19,6 +20,7 @@ public class KeyActionTrigger extends ActionTrigger{
     protected static KeybindDialogStyle style;
     public KeyCode keyCode = KeyCode.unknown;
     public KeyAction keyAction = KeyAction.down;
+    public boolean anyNumber=false;
     private transient Runnable onRemove = () -> {
     };
 
@@ -27,7 +29,19 @@ public class KeyActionTrigger extends ActionTrigger{
 
     @Override
     public boolean trigger(){
+        boolean locked = Vars.control.input.locked();
         if(scene.getKeyboardFocus() instanceof TextField) return false;
+        if(scene.hasDialog()) return false;
+        if(scene.hasField()) return false;
+        if(locked) return false;
+        if (anyNumber){
+            for(int i = 0; i < 10; i++){
+                if(keyAction.trigger(KeyCode.valueOf("num"+i)) || keyAction.trigger(KeyCode.valueOf("numpad"+i))){
+                    return true;
+                }
+            }
+            return false;
+        }
         return keyAction.trigger(keyCode);
     }
 
