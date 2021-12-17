@@ -1,6 +1,5 @@
 package simpleHotkeys.ui;
 
-import arc.scene.ui.TextButton.*;
 import arc.struct.*;
 import mindustry.gen.*;
 import mindustry.io.*;
@@ -15,6 +14,7 @@ import java.util.*;
 
 public class CommandBindDialog extends BaseDialog{
     static SortByClass sortByClass = new SortByClass();
+    private ButtonsDialog buttonsDialog=new ButtonsDialog();
     Runnable rebuild = () -> {
     };
 
@@ -71,10 +71,12 @@ public class CommandBindDialog extends BaseDialog{
                 }, cols, cell -> cell.size(220f, 74));
             });
         }, Styles.logict, () -> {
-        }).size(210f, 64).left().padLeft(2).row();
+        }).size(210f, 64).left().padLeft(2);
+
+        buttons.button("@dialog.edit-buttons",()->buttonsDialog.show()).size(210f, 64f).row();
         rebuild.run();
 
-        buttons.defaults().colspan(2);
+        buttons.defaults().colspan(3);
         addCloseButton();
         buttons.defaults().colspan(1);
 //        SHVars.simpleActions.show(this);

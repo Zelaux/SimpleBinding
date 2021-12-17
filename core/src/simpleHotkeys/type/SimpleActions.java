@@ -17,8 +17,11 @@ import simpleHotkeys.type.trigger.*;
 public class SimpleActions{
     public static final String settingsKey = "simple-hotkeys-actions";
     public Seq<ActionWithTrigger> actions = new Seq<>();
+    public Seq<ButtonObject> buttons = new Seq<>();
   transient   Runnable rebuild = null;
-
+public ButtonObject buttonsById(String id){
+    return buttons.find(b->b.id.equals(id));
+}
     public static SimpleActions load(){
 //        Core.settings.remove(settingsKey);
 //        return new SimpleActions();

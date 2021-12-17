@@ -1,24 +1,28 @@
 package simpleHotkeys;
 
 import arc.*;
+import arc.func.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.*;
 import mindustry.ctype.*;
+import mindustry.entities.*;
 import mindustry.game.*;
+import mindustry.gen.*;
+import mindustry.world.blocks.*;
 import mma.*;
 import simpleHotkeys.core.*;
 import simpleHotkeys.type.*;
 
-import static mindustry.Vars.headless;
+import static mindustry.Vars.*;
 
 public class SHVars extends ModVars{
     private final static Seq<Runnable> onLoad = new Seq<>();
-//    public static ModSettings settings;
+    //    public static ModSettings settings;
 //    public static ModNetClient netClient;
 //    public static ModNetServer netServer;
-    public static SHUI shUI;
-//    public static ModLogic logic;
+    public static SHUI sbUI;
+    //    public static ModLogic logic;
     public static SimpleActions simpleActions;
 
     static{
@@ -43,12 +47,30 @@ public class SHVars extends ModVars{
         onLoad.clear();
         //for example
         //settings = new ModSettings();
-        if (!headless) listener.add(shUI = new SHUI());
+        if(!headless) listener.add(sbUI = new SHUI());
         //listener.add(netClient = new ModNetClient());
         //listener.add(netServer = new ModNetServer());
         //listener.add(logic = new ModLogic());
     }
 
+    public static Unit findUnit(Boolf<Unit> filter){
+
+        Unit unit = Units.closest(player.team(), Core.input.mouseWorld().x, Core.input.mouseWorld().y, 40f, filter);
+        if(unit != null && filter.get(unit)){
+            unit.hitbox(Tmp.r1);
+            Tmp.r1.grow(6f);
+            if(Tmp.r1.contains(Core.input.mouseWorld())){
+                return unit;
+            }
+        }
+
+        Building build = world.buildWorld(Core.input.mouseWorld().x, Core.input.mouseWorld().y);
+        if(build instanceof ControlBlock cont && cont.canControl() && build.team == player.team() && filter.get(cont.unit())){
+            return cont.unit();
+        }
+
+        return null;
+    }
 
     public static void modLog(String text, Object... args){
         Log.info("[@] @", modInfo == null ? "simple-hotkeys" : modInfo.name, Strings.format(text, args));

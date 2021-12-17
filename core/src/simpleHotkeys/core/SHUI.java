@@ -3,8 +3,6 @@ package simpleHotkeys.core;
 import arc.KeyBinds.*;
 import arc.scene.*;
 import arc.scene.ui.layout.*;
-import arc.util.*;
-import mindustry.*;
 import mindustry.ui.*;
 import mma.core.*;
 import simpleHotkeys.ui.*;
@@ -14,6 +12,7 @@ import static mindustry.Vars.ui;
 public class SHUI extends ModUI{
     public RebindDialog rebindDialog;
     public CommandBindDialog commandBindDialog;
+//    public MovableButton movableButtonDialog;
     public SHUI(){
         super(new KeyBind[0]);
     }
@@ -23,6 +22,7 @@ public class SHUI extends ModUI{
         super.init();
         rebindDialog=new RebindDialog();
         commandBindDialog=new CommandBindDialog();
+//        movableButtonDialog=new MovableButton();
         Runnable rebuild=()->{
             Table settingUi = (Table)((Group)((Group)(ui.settings.getChildren().get(1))).getChildren().get(0)).getChildren().get(0);
             settingUi.row();

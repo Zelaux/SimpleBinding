@@ -2,15 +2,13 @@ package simpleHotkeys;
 
 import arc.*;
 import arc.struct.*;
-import arc.util.*;
-import arc.util.serialization.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
 import mindustry.io.*;
 import mma.*;
 import mma.annotations.*;
-import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.gen.*;
+import simpleHotkeys.type.*;
 
 import static simpleHotkeys.SHVars.*;
 
@@ -19,12 +17,16 @@ import static simpleHotkeys.SHVars.*;
 public class SimpleHotkeysMod extends MMAMod{
     public SimpleHotkeysMod(){
         super();
-        if (Vars.mobile){
-            Events.on(ClientLoadEvent.class,e->{
-                Vars.ui.showInfo("@simple-hotkeys.not-for-mobile");
-            });
+        if(Vars.mobile){
             return;
         }
+        Events.on(ClientLoadEvent.class, e -> {
+            if(Vars.mobile){
+                Vars.ui.showInfo("@simple-hotkeys.not-for-mobile");
+                return;
+            }
+            simpleActions.buttons.each(ButtonObject::add);
+        });
         ModVars.loaded = true;
         SHVars.load();
         modLog("constructor");
@@ -32,14 +34,14 @@ public class SimpleHotkeysMod extends MMAMod{
 
 
     public void init(){
-        if (Vars.mobile)return;
+        if(Vars.mobile) return;
         modLog("init");
         modInfo = Vars.mods.getMod(this.getClass());
-        Seq<Class<?>> classes=Seq.with();
-        classes.addAll(Seq.with(ActionList.values()).map(a->a.referenceType).as());
-        classes.addAll(Seq.with(TriggerList.values()).map(t->t.referenceType).as());
+        Seq<Class<?>> classes = Seq.with();
+        classes.addAll(Seq.with(ActionList.values()).map(a -> a.referenceType).as());
+        classes.addAll(Seq.with(TriggerList.values()).map(t -> t.referenceType).as());
         for(Class<?> referenceType : classes){
-            JsonIO.json.addClassTag(referenceType.getName(),referenceType);
+            JsonIO.json.addClassTag(referenceType.getName(), referenceType);
         }
 
         SHVars.init();

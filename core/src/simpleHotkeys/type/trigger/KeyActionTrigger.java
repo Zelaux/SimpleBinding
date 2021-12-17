@@ -6,7 +6,6 @@ import arc.scene.ui.*;
 import arc.scene.ui.TextButton.*;
 import arc.scene.ui.layout.*;
 import mindustry.*;
-import mindustry.gen.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.KeybindDialog.*;
 import simpleHotkeys.*;
@@ -57,7 +56,7 @@ public class KeyActionTrigger extends ActionTrigger{
         table.add(keyCode.toString(), style.keyColor).left().minWidth(90).padRight(20);
 
         table.button("@settings.rebind", tstyle, () -> {
-            SHVars.shUI.rebindDialog.show(key -> {
+            SHVars.sbUI.rebindDialog.show(key -> {
                 keyCode = key;
                 rebuild(table);
             });

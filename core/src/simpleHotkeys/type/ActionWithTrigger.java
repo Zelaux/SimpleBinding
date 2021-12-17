@@ -2,7 +2,9 @@ package simpleHotkeys.type;
 
 import arc.scene.ui.layout.*;
 import arc.struct.*;
+import arc.util.*;
 import mindustry.ui.*;
+import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.gen.*;
 import simpleHotkeys.tools.*;
 
@@ -19,7 +21,8 @@ public abstract class ActionWithTrigger{
 
     public void display(Table table, Runnable onRemove){
         Runnable rebuild[] = {null};
-        displayOwn(table);
+        table.add(actionList().name()).colspan(2).row();
+        table.table(this::displayOwn).fillX().colspan(2).row();
 
         table.pane(t -> {
             rebuild[0] = () -> {
@@ -67,4 +70,11 @@ public abstract class ActionWithTrigger{
     }
 
     public abstract void invoke();
+    public Class clazz(){
+        Class clazz = getClass();
+        return clazz.isAnonymousClass() ? clazz.getSuperclass() : clazz;
+    }
+    public ActionList actionList(){
+        return Structs.find(ActionList.values(), t -> t.referenceType == clazz());
+    }
 }
