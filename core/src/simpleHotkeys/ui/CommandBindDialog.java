@@ -32,11 +32,11 @@ public class CommandBindDialog extends BaseDialog{
         buttons.clearChildren();
 
 
-        Seq<ActionWithTrigger> actions = SHVars.simpleActions.actions;
+        Seq<Action> actions = SHVars.simpleActions.actions;
         cont.pane(actionTable -> {
             rebuild = () -> {
                 actionTable.clearChildren();
-                for(ActionWithTrigger action : actions){
+                for(Action action : actions){
                     action.triggers.sort(sortByClass);
                     actionTable.table(Tex.pane, t -> {
                         action.display(t, rebuild);

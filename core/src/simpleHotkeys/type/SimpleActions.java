@@ -2,21 +2,12 @@ package simpleHotkeys.type;
 
 import arc.*;
 import arc.scene.ui.*;
-import arc.scene.ui.TextButton.*;
-import arc.scene.ui.layout.*;
 import arc.struct.*;
-import arc.util.*;
-import mindustry.gen.*;
 import mindustry.io.*;
-import mindustry.ui.*;
-import simpleHotkeys.gen.*;
-import simpleHotkeys.tools.*;
-import simpleHotkeys.type.actions.*;
-import simpleHotkeys.type.trigger.*;
 
 public class SimpleActions{
     public static final String settingsKey = "simple-hotkeys-actions";
-    public Seq<ActionWithTrigger> actions = new Seq<>();
+    public Seq<Action> actions = new Seq<>();
     public Seq<ButtonObject> buttons = new Seq<>();
   transient   Runnable rebuild = null;
 public ButtonObject buttonsById(String id){
@@ -38,7 +29,7 @@ public ButtonObject buttonsById(String id){
     }
 
     public void check(){
-        actions.each(ActionWithTrigger::update);
+        actions.each(Action::update);
 //        save();
     }
 

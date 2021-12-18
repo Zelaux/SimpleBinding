@@ -1,6 +1,5 @@
 package simpleHotkeys.type.trigger;
 
-import arc.func.*;
 import arc.input.*;
 import arc.scene.ui.*;
 import arc.scene.ui.TextButton.*;
@@ -14,7 +13,7 @@ import simpleHotkeys.tools.*;
 import simpleHotkeys.type.*;
 
 import static arc.Core.*;
-@Trigger("keyAction")
+@RegisterTrigger("keyAction")
 public class KeyActionTrigger extends ActionTrigger{
     protected static KeybindDialogStyle style;
     public KeyCode keyCode = KeyCode.unknown;
@@ -72,18 +71,5 @@ public class KeyActionTrigger extends ActionTrigger{
         }, Styles.logict, () -> {
         }).size(90, 40).left().padLeft(2);
         removeButton(table).grow();
-    }
-
-    public enum KeyAction{
-        down(k -> input.keyDown(k)), tap(k -> input.keyTap(k)), release(k -> input.keyRelease(k));
-        final Boolf<KeyCode> action;
-
-        KeyAction(Boolf<KeyCode> action){
-            this.action = action;
-        }
-
-        public boolean trigger(KeyCode key){
-            return action.get(key);
-        }
     }
 }

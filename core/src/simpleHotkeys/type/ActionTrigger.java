@@ -4,8 +4,9 @@ import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import mindustry.gen.*;
+import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.gen.*;
-
+@RootTrigger
 public abstract class ActionTrigger{
     private transient Runnable onRemove;
 

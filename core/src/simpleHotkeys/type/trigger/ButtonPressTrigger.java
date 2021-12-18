@@ -10,7 +10,7 @@ import simpleHotkeys.*;
 import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.type.*;
 
-@Trigger("buttonPress")
+@RegisterTrigger("buttonPress")
 public class ButtonPressTrigger extends ActionTrigger{
     public String buttonId;
     private transient ButtonObject object;
@@ -19,11 +19,15 @@ public class ButtonPressTrigger extends ActionTrigger{
     @Override
     public boolean trigger(){
         if(mustFind && object == null){
-            object = SHVars.simpleActions.buttonsById(buttonId);
-            mustFind=false;
+            updateButton();
+            mustFind = false;
         }
         if(object == null) return false;
         return object.clicked();
+    }
+
+    private void updateButton(){
+        object = SHVars.simpleActions.buttonsById(buttonId);
     }
 
     @Override
@@ -34,12 +38,15 @@ public class ButtonPressTrigger extends ActionTrigger{
             setStyle(new TextFieldStyle(Styles.defaultField){{
                 background = underline;
             }});
+            updateButton();
             underline.getPatch().getColor().set(object == null ? Color.red : Color.white);
             changed(() -> {
                 String text = getText();
                 buttonId = text;
                 ButtonObject object = SHVars.simpleActions.buttonsById(text);
                 underline.getPatch().getColor().set(object == null ? Color.red : Color.white);
+                ButtonPressTrigger.this.object = object;
+                mustFind=true;
             });
         }});
     }

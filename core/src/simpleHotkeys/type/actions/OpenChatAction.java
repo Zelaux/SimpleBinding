@@ -11,8 +11,8 @@ import simpleHotkeys.type.*;
 
 import java.lang.reflect.*;
 
-@Action("openChat")
-public class OpenChatAction extends ActionWithTrigger{
+@RegisterAction("openChat")
+public class OpenChatAction extends Action{
     public String text="";
 
     @Override
@@ -40,6 +40,7 @@ public class OpenChatAction extends ActionWithTrigger{
                     }else{
                         field.setText(format);
                     }
+                    field.requestKeyboard();
                 });
             }catch(Exception e){
 

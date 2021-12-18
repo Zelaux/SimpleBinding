@@ -7,8 +7,8 @@ import mindustry.ui.*;
 import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.gen.*;
 import simpleHotkeys.tools.*;
-
-public abstract class ActionWithTrigger{
+@RootAction
+public abstract class Action{
     public Seq<ActionTrigger> triggers = new Seq<>();
 
     public void update(){

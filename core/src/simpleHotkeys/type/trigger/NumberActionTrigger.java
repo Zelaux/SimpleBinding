@@ -3,19 +3,15 @@ package simpleHotkeys.type.trigger;
 import arc.input.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
-import arc.util.*;
 import mindustry.*;
 import mindustry.ui.*;
-import mindustry.ui.dialogs.KeybindDialog.*;
 import simpleHotkeys.annotations.SHAnnotations.*;
-import simpleHotkeys.gen.*;
 import simpleHotkeys.tools.*;
 import simpleHotkeys.type.*;
-import simpleHotkeys.type.trigger.KeyActionTrigger.*;
 
 import static arc.Core.scene;
 
-@Trigger("numberAction")
+@RegisterTrigger("numberAction")
 public class NumberActionTrigger extends ActionTrigger{
     public KeyAction keyAction = KeyAction.down;
     public NumberActionTrigger(){

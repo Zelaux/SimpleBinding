@@ -8,14 +8,23 @@ public class SHAnnotations{
      */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Action{
-        /** Action name in enum list */
+    public @interface RegisterAction{
+        /** RegisterAction name in enum list */
         String value();
     }
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Trigger{
-        /** Trigger name in enum list */
+    public @interface RegisterTrigger{
+        /** RegisterTrigger name in enum list */
         String value();
+    }
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface RootAction{
+
+    }
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface RootTrigger{
     }
 }

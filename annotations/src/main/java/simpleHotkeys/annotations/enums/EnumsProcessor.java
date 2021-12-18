@@ -12,22 +12,26 @@ import simpleHotkeys.annotations.SHAnnotations.*;
 import javax.annotation.processing.*;
 import javax.lang.model.element.*;
 
-@SupportedAnnotationTypes({"simpleHotkeys.annotations.SHAnnotations.Action", "simpleHotkeys.annotations.SHAnnotations.Trigger"})
+@SupportedAnnotationTypes({"simpleHotkeys.annotations.SHAnnotations.RegisterAction", "simpleHotkeys.annotations.SHAnnotations.RegisterTrigger"})
 public class EnumsProcessor extends ModBaseProcessor{
 
     @Override
     public void process(RoundEnvironment env) throws Exception{
         Seq<Stype> actions = new Seq<>();
         Seq<Stype> triggers = new Seq<>();
-        for(Stype type : types(Action.class)){
-            if(type.superclasses().contains(s -> s.fullName().equals("simpleHotkeys.type.ActionWithTrigger"))){
+        Seq<Stype> actionsToRegister = types(RegisterAction.class);
+        Stype rootAction=types(RootAction.class).first();
+        for(Stype type : actionsToRegister){
+            if(type.superclasses().contains(s -> s.fullName().equals(rootAction.fullName()))){
                 actions.add(type);
             } else {
                 Log.err("action @ was ignored",type.fullName());
             }
         }
-        for(Stype type : types(Trigger.class)){
-            if(type.superclasses().contains(s -> s.fullName().equals("simpleHotkeys.type.ActionTrigger"))){
+        Seq<Stype> triggerToRegister = types(RegisterTrigger.class);
+        Stype rootTrigger=types(RootTrigger.class).first();
+        for(Stype type : triggerToRegister){
+            if(type.superclasses().contains(s -> s.fullName().equals(rootTrigger.fullName()))){
                 triggers.add(type);
             } else {
                 Log.err("action @ was ignored",type.fullName());
@@ -36,8 +40,8 @@ public class EnumsProcessor extends ModBaseProcessor{
         if(actions.isEmpty() && triggers.isEmpty()){
             Log.warn("Cannot find any triggers and actions");
         }
-        build("ActionList", actions, type->type.annotation(Action.class).value());
-        build("TriggerList", triggers, type->type.annotation(Trigger.class).value());
+        build("ActionList", actions, type->type.annotation(RegisterAction.class).value());
+        build("TriggerList", triggers, type->type.annotation(RegisterTrigger.class).value());
     }
 
     private void build(String name, Seq<Stype> stypes, Func<Stype,String> nameTransformer) throws Exception{

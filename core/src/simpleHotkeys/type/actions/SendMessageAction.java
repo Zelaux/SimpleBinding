@@ -6,8 +6,8 @@ import mindustry.gen.*;
 import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.type.*;
 
-@Action("chatMessage")
-public class SendMessageAction extends ActionWithTrigger{
+@RegisterAction("chatMessage")
+public class SendMessageAction extends Action{
     public String command;
 
     @Override

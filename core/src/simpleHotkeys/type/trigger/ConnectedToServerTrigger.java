@@ -1,12 +1,11 @@
 package simpleHotkeys.type.trigger;
 
 import arc.scene.ui.layout.*;
-import arc.util.*;
 import mindustry.*;
 import simpleHotkeys.annotations.SHAnnotations.*;
 import simpleHotkeys.type.*;
 
-@Trigger("connectedToServer")
+@RegisterTrigger("connectedToServer")
 public class ConnectedToServerTrigger extends ActionTrigger{
     private transient boolean
     client = false, connecting = false;
@@ -31,7 +30,7 @@ public class ConnectedToServerTrigger extends ActionTrigger{
 
     @Override
     public void rebuild(Table table){
-        table.label(() -> getClass().getSimpleName().replace("Trigger", ""));
+        table.label(() -> getClass().getSimpleName().replace("RegisterTrigger", ""));
         removeButton(table);
     }
 }

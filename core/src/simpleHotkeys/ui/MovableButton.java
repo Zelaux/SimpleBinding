@@ -6,8 +6,8 @@ import arc.input.*;
 import arc.math.*;
 import arc.math.geom.*;
 import arc.scene.*;
+import arc.scene.actions.*;
 import arc.scene.event.*;
-import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import arc.util.pooling.*;
@@ -78,8 +78,8 @@ public class MovableButton extends Table{
 
 //            TextButton button = cell.get();
 
-            cell.update(button->{
-               button.setBounds(getWidth()/2f-105f,0,210,64);
+            cell.update(button -> {
+                button.setBounds(getWidth() / 2f - 105f, 0, 210, 64);
             });
 
             Pools.get(Cell.class, Cell::new).free(cell);
@@ -97,15 +97,53 @@ public class MovableButton extends Table{
 
     }
 
+    Element previousKeyboardFocus, previousScrollFocus;
     private void hide(){
-        Core.scene.root.removeChild(this);
+        Scene stage = getScene();
+        if(stage != null){
+//            removeListener(focusListener);
+            if(previousKeyboardFocus != null && previousKeyboardFocus.getScene() == null) previousKeyboardFocus = null;
+            Element actor = stage.getKeyboardFocus();
+            if(actor == null || actor.isDescendantOf(this)) stage.setKeyboardFocus(previousKeyboardFocus);
+
+            if(previousScrollFocus != null && previousScrollFocus.getScene() == null) previousScrollFocus = null;
+            actor = stage.getScrollFocus();
+            if(actor == null || actor.isDescendantOf(this)) stage.setScrollFocus(previousScrollFocus);
+        }
+    /*    if(action != null){
+//            addCaptureListener(ignoreTouchDown);
+//            addAction(Actions.sequence(action, Actions.removeListener(ignoreTouchDown, true), Actions.remove()));
+        }else
+        */
+
+        remove();
+
         positionCons.get(element.x, element.y);
         element = null;
     }
 
     private void show(){
-        Core.scene.root.addChild(this);
-        Core.scene.setKeyboardFocus(this);
+        Scene stage = Core.scene;
+
+        previousKeyboardFocus = null;
+        Element actor = stage.getKeyboardFocus();
+        if(actor != null && !actor.isDescendantOf(this)) previousKeyboardFocus = actor;
+
+        previousScrollFocus = null;
+        actor = stage.getScrollFocus();
+        if(actor != null && !actor.isDescendantOf(this)) previousScrollFocus = actor;
+
+        pack();
+        stage.add(this);
+        stage.setKeyboardFocus(this);
+        stage.setScrollFocus(this);
+
+        Core.scene.root.addChildAt(0, this);
+        requestKeyboard();
+//        Core.scene.setKeyboardFocus(this);
+//        Core.scene.(this);
+//
+//        Core.scene.unfocus(this);
         background(Tex.pane);
     }
 
