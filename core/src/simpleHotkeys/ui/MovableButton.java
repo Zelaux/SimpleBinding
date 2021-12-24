@@ -11,6 +11,7 @@ import arc.scene.event.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import arc.util.pooling.*;
+import mindustry.*;
 import mindustry.gen.*;
 
 public class MovableButton extends Table{
@@ -90,6 +91,8 @@ public class MovableButton extends Table{
         MovableButton.element = element;
 
         MovableButton.positionCons = positionCons;
+
+
 //        positionCons.get(Mathf.clamp(element.x, min.x, max.x), Mathf.clamp(element.y, min.y, max.y));
 
         instance.show();
@@ -120,6 +123,8 @@ public class MovableButton extends Table{
 
         positionCons.get(element.x, element.y);
         element = null;
+        preDraw(()->{});
+
     }
 
     private void show(){
@@ -146,10 +151,16 @@ public class MovableButton extends Table{
 //        Core.scene.unfocus(this);
         background(Tex.pane);
     }
+private static Runnable preDraw=()->{};
+
+    public static void preDraw(Runnable preDraw){
+        MovableButton.preDraw = preDraw;
+    }
 
     @Override
     public void draw(){
         super.draw();
+        preDraw.run();
         if(element != null){
             float prevX = element.x;
             float prevY = element.y;

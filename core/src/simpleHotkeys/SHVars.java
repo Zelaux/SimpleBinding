@@ -24,6 +24,7 @@ public class SHVars extends ModVars{
     public static SHUI sbUI;
     //    public static ModLogic logic;
     public static SimpleActions simpleActions;
+    public static ApplicationCore preListener;
 
     static{
         new SHVars();
@@ -36,6 +37,22 @@ public class SHVars extends ModVars{
     public static void init(){
         simpleActions = SimpleActions.load();
         ModListener.updaters.add(simpleActions::check);
+
+        preListener = new ApplicationCore(){
+            @Override
+            public void setup(){
+
+            }
+
+            @Override
+            public void update(){
+                Action.preUpdate.run();
+                super.update();
+            }
+        };
+       Core.app.post(()->{
+           Core.app.getListeners().insert(0,preListener);
+       });
     }
 
     /**

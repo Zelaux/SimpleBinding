@@ -9,6 +9,7 @@ import simpleHotkeys.gen.*;
 import simpleHotkeys.tools.*;
 @RootAction
 public abstract class Action{
+    public final static TaskQueue preUpdate=new TaskQueue();
     public Seq<ActionTrigger> triggers = new Seq<>();
 
     public void update(){
