@@ -40,6 +40,7 @@ public class ButtonObject{
             Core.scene.add(button);
         }
         previous = button;
+        button.visibility=()->Vars.ui.hudfrag.shown;
     }
 
     public Button toButton(){

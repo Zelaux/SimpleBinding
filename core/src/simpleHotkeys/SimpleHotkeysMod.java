@@ -18,12 +18,12 @@ public class SimpleHotkeysMod extends MMAMod{
     public SimpleHotkeysMod(){
         super();
         if(Vars.mobile){
-            return;
+//            return;
         }
         Events.on(ClientLoadEvent.class, e -> {
             if(Vars.mobile){
                 Vars.ui.showInfo("@simple-hotkeys.not-for-mobile");
-                return;
+//                return;
             }
             simpleActions.buttons.each(ButtonObject::add);
         });
