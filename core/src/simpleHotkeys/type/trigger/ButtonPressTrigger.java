@@ -46,8 +46,9 @@ public class ButtonPressTrigger extends ActionTrigger{
                 ButtonObject object = SHVars.simpleActions.buttonsById(text);
                 underline.getPatch().getColor().set(object == null ? Color.red : Color.white);
                 ButtonPressTrigger.this.object = object;
-                mustFind=true;
+                mustFind = true;
             });
         }});
+        removeButton(table);
     }
 }
